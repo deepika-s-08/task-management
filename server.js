@@ -116,16 +116,24 @@ app.delete("/tasks/:id", async (req, res) => {
   }
 });
 
-// Connect MongoDB first, then start server
-mongoose
-  .connect("mongodb://127.0.0.1:27017/taskmanager")
-  .then(() => {
-    console.log("MongoDB connected");
+// MongoDB Atlas Connection
+const MONGODB_URI = process.env.MONGODB_URI;
 
-    app.listen(PORT, () => {
+if (!MONGODB_URI) {
+  console.error("MONGODB_URI environment variable is missing.");
+  process.exit(1);
+}
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log("MongoDB Atlas connected successfully");
+
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
     console.error("MongoDB connection error:", err);
+    process.exit(1);
   });
