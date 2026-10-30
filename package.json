@@ -1,4 +1,12 @@
+
 {
+  "name": "task-management",
+  "version": "1.0.0",
+  "description": "Task Management System using Node.js, Express and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "body-parser": "^2.4.0",
     "express": "^5.3.0",
